@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Books by genre</title>
+</head>
+<body>
+
+<h1 th:if="${genre != null}">
+    All <span th:text="${genre}"></span> Books
+</h1>
+
+<h1 th:if="${genre == null}">
+    All books
+</h1>
+
+<form th:action="@{/genre}" method="get">
+    <label for="type">Choose genre:</label>
+
+    <select id="type" name="type">
+        <option value="">All genres</option>
+        <option value="Fantasy">Fantasy</option>
+        <option value="Horror">Horror</option>
+        <option value="Romance">Romance</option>
+        <option value="Comedy">Comedy</option>
+        <option value="Biopic">Biopic</option>
+        <option value="Deckare">Deckare</option>
+    </select>
+
+    <button type="submit">Search</button>
+</form>
+
+<ul>
+    <li th:each="book : ${books}">
+        <span th:text="${book.title}"></span>,
+        Author:
+        <span th:text="${book.author}"></span>
+    </li>
+</ul>
+
+<p th:if="${#lists.isEmpty(books)}">
+    No books found in this genre.
+</p>
+
+</body>
+</html>
